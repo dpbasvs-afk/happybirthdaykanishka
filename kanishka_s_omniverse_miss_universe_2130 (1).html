@@ -1,0 +1,2107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kanishka's Omniverse — Miss Universe 2130… OOPS, OMNIVERSE!</title>
+
+  <!-- Editorial & Friendly Typography from Google Fonts with clean system fallbacks -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS & ACCESSIBLE PALETTE
+       ========================================================================== */
+    :root {
+      /* Core Palette */
+      --blush-light: #FFE4EC;
+      --blush-mid: #FFD1DF;
+      --rose-primary: #E03E73;
+      --rose-accessible: #B82557; /* WCAG AA+ high-contrast rose for text */
+      --rose-deep: #8A173E;
+      --cream-bg: #FFFDF9;
+      --cream-warm: #FFF7F0;
+      --lavender-soft: #EDE4FF;
+      --lavender-mid: #D8C7FF;
+      --lavender-deep: #5B3E96;
+
+      /* Metallic Gold & Editorial Ink */
+      --gold-foil: #D4AF37;
+      --gold-light: #F5D77F;
+      --gold-text: #85630A; /* High-contrast antique gold for labels */
+      --ink-dark: #2B1320;
+      --ink-muted: #5E3B4D;
+
+      /* Gradients & Shadows */
+      --grad-gold: linear-gradient(135deg, #F5D77F 0%, #D4AF37 50%, #B88E1E 100%);
+      --grad-rose: linear-gradient(135deg, #E84A7F 0%, #B82557 100%);
+      --grad-editorial: radial-gradient(circle at 15% 15%, #FFE4EC 0%, transparent 48%),
+                        radial-gradient(circle at 85% 25%, #EDE4FF 0%, transparent 50%),
+                        radial-gradient(circle at 50% 85%, #FFF7F0 0%, #FFFDF9 100%);
+      --shadow-soft: 0 12px 32px -8px rgba(184, 37, 87, 0.14);
+      --shadow-card: 0 18px 40px -12px rgba(43, 19, 32, 0.12);
+      --shadow-gold: 0 10px 28px -6px rgba(212, 175, 55, 0.35);
+
+      /* Typography */
+      --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-hand: 'Caveat', cursive, sans-serif;
+
+      /* Radii & Spacing */
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 28px;
+      --radius-pill: 999px;
+    }
+
+    /* ==========================================================================
+       2. BASE RESET & MOBILE-FIRST FOUNDATION
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--ink-dark);
+      background-color: var(--cream-bg);
+      background-image: var(--grad-editorial);
+      background-attachment: fixed;
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Confetti Canvas Overlay */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Floating Ambient Sparkles Layer */
+    .ambient-sparkles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .sparkle-dot {
+      position: absolute;
+      color: var(--gold-foil);
+      opacity: 0.45;
+      animation: floatSparkle 7s ease-in-out infinite;
+      user-select: none;
+    }
+
+    @keyframes floatSparkle {
+      0%, 100% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.35; }
+      50% { transform: translateY(-16px) scale(1.18) rotate(18deg); opacity: 0.75; }
+    }
+
+    /* ==========================================================================
+       3. STICKY EDITORIAL MINI-HEADER
+       ========================================================================== */
+    .sticky-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255, 253, 249, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+      padding: 10px 16px;
+      transform: translateY(-110%);
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 4px 20px rgba(184, 37, 87, 0.08);
+    }
+
+    .sticky-header.visible {
+      transform: translateY(0);
+    }
+
+    .sticky-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .sticky-brand {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--rose-accessible);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mini-confetti-btn {
+      min-height: 38px;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid var(--gold-foil);
+      background: linear-gradient(135deg, var(--blush-light), var(--cream-bg));
+      color: var(--ink-dark);
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .mini-confetti-btn:hover,
+    .mini-confetti-btn:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+      outline: none;
+    }
+
+    .mini-confetti-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* ==========================================================================
+       4. GRAND ENTRANCE (FULL-SCREEN OPENING STAGE)
+       ========================================================================== */
+    .grand-entrance {
+      position: relative;
+      z-index: 1;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 36px 20px;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(255, 209, 223, 0.75) 0%, transparent 55%),
+        radial-gradient(circle at 85% 80%, rgba(216, 199, 255, 0.65) 0%, transparent 50%),
+        linear-gradient(180deg, #FFF7F0 0%, #FFE4EC 55%, #FFFDF9 100%);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+    }
+
+    .entrance-card {
+      max-width: 680px;
+      width: 100%;
+      background: rgba(255, 253, 249, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(212, 175, 55, 0.55);
+      border-radius: var(--radius-lg);
+      padding: clamp(28px, 6vw, 52px) clamp(20px, 5vw, 44px);
+      box-shadow:
+        0 24px 60px -15px rgba(184, 37, 87, 0.2),
+        inset 0 0 0 4px rgba(255, 228, 236, 0.6);
+      position: relative;
+      animation: entranceFadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes entranceFadeUp {
+      from { opacity: 0; transform: translateY(22px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .crown-emblem-wrap {
+      width: 96px;
+      height: 76px;
+      margin: 0 auto 14px;
+      animation: gentleHover 3.5s ease-in-out infinite;
+    }
+
+    @keyframes gentleHover {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .sash-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--lavender-soft) 0%, var(--blush-light) 100%);
+      border: 1.5px solid var(--gold-foil);
+      color: var(--rose-accessible);
+      font-size: clamp(0.72rem, 2.5vw, 0.85rem);
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 18px;
+      box-shadow: 0 4px 14px rgba(212, 175, 55, 0.18);
+    }
+
+    .hero-headline {
+      font-family: var(--font-serif);
+      font-size: clamp(2.15rem, 7vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.12;
+      color: var(--ink-dark);
+      letter-spacing: -0.01em;
+      margin-bottom: 14px;
+    }
+
+    .hero-headline span {
+      display: block;
+      font-style: italic;
+      background: linear-gradient(135deg, #B82557 0%, #E03E73 55%, #9A6B0A 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 3.2vw, 1.2rem);
+      color: var(--ink-muted);
+      font-weight: 500;
+      max-width: 460px;
+      margin: 0 auto 30px;
+    }
+
+    .cta-omniverse {
+      min-height: 56px;
+      padding: 16px 32px;
+      border-radius: var(--radius-pill);
+      border: 2px solid var(--gold-light);
+      background: var(--grad-rose);
+      color: #FFFFFF;
+      font-family: var(--font-sans);
+      font-size: clamp(0.95rem, 3vw, 1.08rem);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow:
+        0 14px 30px -6px rgba(184, 37, 87, 0.45),
+        0 0 0 4px rgba(255, 228, 236, 0.9);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-omniverse::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 45%;
+      height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+      transform: rotate(25deg);
+      animation: shimmerSweep 3.4s infinite;
+    }
+
+    @keyframes shimmerSweep {
+      0% { left: -60%; }
+      45%, 100% { left: 130%; }
+    }
+
+    .cta-omniverse:hover,
+    .cta-omniverse:focus-visible {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow:
+        0 18px 36px -6px rgba(184, 37, 87, 0.55),
+        0 0 0 5px rgba(212, 175, 55, 0.4);
+      outline: none;
+    }
+
+    .cta-omniverse:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    .entrance-footnote {
+      margin-top: 18px;
+      font-size: 0.8rem;
+      color: var(--gold-text);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    /* ==========================================================================
+       5. EDITORIAL SECTION CONTAINER & SHARED HEADERS
+       ========================================================================== */
+    .editorial-main {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 20px 18px 80px;
+    }
+
+    .editorial-section {
+      padding: clamp(48px, 8vw, 76px) 0;
+      border-bottom: 1px dashed rgba(212, 175, 55, 0.4);
+    }
+
+    .editorial-section:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: clamp(28px, 5vw, 42px);
+    }
+
+    .section-kicker {
+      display: inline-block;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--rose-accessible);
+      background: var(--blush-light);
+      border: 1px solid rgba(224, 62, 115, 0.25);
+      padding: 5px 14px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.85rem, 5.5vw, 2.65rem);
+      font-weight: 800;
+      color: var(--ink-dark);
+      line-height: 1.18;
+    }
+
+    .section-subtitle {
+      margin-top: 8px;
+      font-size: 0.98rem;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+
+    /* ==========================================================================
+       6. SECTION 1: THE ORIGIN STORY (SCRAPBOOK POLAROID)
+       ========================================================================== */
+    .scrapbook-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 26px;
+      position: relative;
+    }
+
+    .polaroid-frame {
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+      background: #FFFFFF;
+      padding: 18px 18px 28px;
+      border-radius: 6px;
+      box-shadow:
+        0 20px 45px -12px rgba(43, 19, 32, 0.18),
+        0 2px 8px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      transform: rotate(-1.8deg);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .polaroid-frame:hover {
+      transform: rotate(0deg) translateY(-4px);
+    }
+
+    /* Decorative Pastel Washi Tape Strips */
+    .washi-tape {
+      position: absolute;
+      top: -14px;
+      width: 96px;
+      height: 28px;
+      opacity: 0.88;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      z-index: 2;
+    }
+
+    .washi-left {
+      left: 16px;
+      background: repeating-linear-gradient(
+        45deg,
+        #FFD1DF,
+        #FFD1DF 8px,
+        #FFE4EC 8px,
+        #FFE4EC 16px
+      );
+      transform: rotate(-14deg);
+    }
+
+    .washi-right {
+      right: 16px;
+      background: repeating-linear-gradient(
+        -45deg,
+        #D8C7FF,
+        #D8C7FF 8px,
+        #EDE4FF 8px,
+        #EDE4FF 16px
+      );
+      transform: rotate(12deg);
+    }
+
+    /* Portrait 4:5 Polaroid Photo Container */
+    .polaroid-photo {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: 4px;
+      overflow: hidden;
+      background: linear-gradient(145deg, var(--blush-light) 0%, var(--lavender-soft) 55%, var(--cream-warm) 100%);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .polaroid-img {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: center 15%;
+      display: block;
+    }
+
+    .polaroid-fallback {
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 12px;
+      border: 2px dashed rgba(184, 37, 87, 0.32);
+      margin: 10px;
+      border-radius: 8px;
+    }
+
+    .placeholder-label {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--rose-accessible);
+      line-height: 1.35;
+    }
+
+    .polaroid-caption {
+      margin-top: 18px;
+      text-align: center;
+      font-family: var(--font-hand);
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--ink-dark);
+      line-height: 1.25;
+    }
+
+    .achievement-sticker {
+      max-width: 380px;
+      width: 100%;
+      background: linear-gradient(135deg, #FFFDF9 0%, var(--blush-light) 100%);
+      border: 2px solid var(--gold-foil);
+      border-radius: var(--radius-md);
+      padding: 16px 22px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transform: rotate(1.2deg);
+    }
+
+    .sticker-medal {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--grad-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      box-shadow: 0 4px 10px rgba(212, 175, 55, 0.35);
+    }
+
+    .sticker-text {
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--ink-dark);
+      line-height: 1.4;
+    }
+
+    /* ==========================================================================
+       7. SECTION 2: THE TALENT SCANNER (6 INTERACTIVE 3D FLIP CARDS)
+       ========================================================================== */
+    .talent-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    @media (min-width: 720px) {
+      .talent-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+    }
+
+    .flip-card {
+      perspective: 1100px;
+      min-height: 225px;
+      cursor: pointer;
+      user-select: none;
+      border-radius: var(--radius-md);
+    }
+
+    @media (min-width: 720px) {
+      .flip-card {
+        min-height: 245px;
+      }
+    }
+
+    .flip-card:focus-visible {
+      outline: 3px solid var(--rose-primary);
+      outline-offset: 4px;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      transition: transform 0.65s cubic-bezier(0.34, 1.45, 0.64, 1);
+      transform-style: preserve-3d;
+    }
+
+    .flip-card.is-flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: var(--radius-md);
+      padding: 18px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: var(--shadow-card);
+    }
+
+    /* Front Face */
+    .flip-front {
+      background: linear-gradient(160deg, #FFFFFF 0%, var(--cream-warm) 65%, var(--blush-light) 100%);
+      border: 1.5px solid rgba(212, 175, 55, 0.55);
+    }
+
+    .flip-card:hover .flip-front {
+      border-color: var(--rose-primary);
+    }
+
+    .talent-emoji {
+      font-size: clamp(2.1rem, 6vw, 2.6rem);
+      margin-bottom: 10px;
+      line-height: 1;
+      filter: drop-shadow(0 4px 8px rgba(184, 37, 87, 0.15));
+    }
+
+    .talent-card-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.02rem, 3.3vw, 1.22rem);
+      font-weight: 800;
+      color: var(--ink-dark);
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+
+    .scan-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--rose-accessible);
+      background: rgba(255, 228, 236, 0.9);
+      border: 1px solid rgba(224, 62, 115, 0.35);
+      padding: 5px 11px;
+      border-radius: var(--radius-pill);
+    }
+
+    /* Back Face */
+    .flip-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(155deg, var(--lavender-soft) 0%, var(--blush-light) 100%);
+      border: 2px solid var(--gold-foil);
+      padding: 16px 14px;
+      justify-content: space-between;
+    }
+
+    .scan-verified-tag {
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-text);
+      background: rgba(255, 253, 249, 0.85);
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+    }
+
+    .talent-desc {
+      font-size: clamp(0.83rem, 2.6vw, 0.92rem);
+      font-weight: 600;
+      color: var(--ink-dark);
+      line-height: 1.45;
+      margin: auto 0;
+    }
+
+    .tap-return-hint {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--rose-accessible);
+      opacity: 0.85;
+    }
+
+    /* ==========================================================================
+       8. SECTION 3: THE OMNIVERSE HALL OF FAME (AWARDS)
+       ========================================================================== */
+    .trophy-showcase {
+      width: 112px;
+      height: 112px;
+      margin: 0 auto 16px;
+      filter: drop-shadow(0 10px 20px rgba(212, 175, 55, 0.3));
+    }
+
+    .awards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    @media (min-width: 680px) {
+      .awards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+    }
+
+    .award-plaque {
+      background: linear-gradient(145deg, #FFFFFF 0%, var(--cream-warm) 100%);
+      border: 2px solid var(--gold-foil);
+      border-radius: var(--radius-md);
+      padding: 20px 20px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      position: relative;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .award-plaque:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .award-icon-badge {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--blush-light), var(--lavender-soft));
+      border: 1.5px solid var(--gold-foil);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    .award-meta {
+      flex: 1;
+    }
+
+    .award-category {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-text);
+      margin-bottom: 4px;
+    }
+
+    .award-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--ink-dark);
+      line-height: 1.3;
+    }
+
+    .final-award-controls {
+      text-align: center;
+    }
+
+    .reveal-award-btn {
+      min-height: 52px;
+      padding: 14px 28px;
+      border-radius: var(--radius-pill);
+      border: 2px solid var(--gold-foil);
+      background: linear-gradient(135deg, #FFF7F0 0%, var(--blush-light) 50%, var(--lavender-soft) 100%);
+      color: var(--rose-accessible);
+      font-family: var(--font-sans);
+      font-size: 0.98rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: var(--shadow-gold);
+      transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .reveal-award-btn:hover,
+    .reveal-award-btn:focus-visible {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 14px 30px -6px rgba(212, 175, 55, 0.45);
+      outline: none;
+    }
+
+    .reveal-award-btn:disabled {
+      opacity: 0.7;
+      cursor: default;
+      transform: none;
+    }
+
+    /* Hidden 5th VIP Grand Award Plaque */
+    .vip-award-reveal {
+      margin-top: 24px;
+      display: none;
+      opacity: 0;
+      transform: scale(0.92) translateY(14px);
+    }
+
+    .vip-award-reveal.is-revealed {
+      display: block;
+      animation: vipSpotlight 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes vipSpotlight {
+      0% { opacity: 0; transform: scale(0.9) translateY(16px); }
+      60% { opacity: 1; transform: scale(1.02) translateY(-2px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .vip-plaque-card {
+      max-width: 640px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #FFFDF9 0%, #FFE4EC 48%, #EDE4FF 100%);
+      border: 2.5px solid var(--gold-foil);
+      border-radius: var(--radius-lg);
+      padding: 26px 22px;
+      text-align: center;
+      box-shadow:
+        0 20px 50px -10px rgba(212, 175, 55, 0.45),
+        inset 0 0 0 4px rgba(255, 255, 255, 0.75);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .vip-ribbon-tag {
+      display: inline-block;
+      background: var(--grad-gold);
+      color: #2B1320;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 12px;
+    }
+
+    .vip-award-text {
+      font-family: var(--font-serif);
+      font-size: clamp(1.25rem, 4vw, 1.55rem);
+      font-weight: 800;
+      color: var(--ink-dark);
+      line-height: 1.35;
+    }
+
+    /* ==========================================================================
+       9. SECTION 4: KANISHKA'S OMNIVERSE — THE MAIN CHARACTER
+       ========================================================================== */
+    .constellation-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .orbit-stage {
+      position: relative;
+      width: 100%;
+      max-width: 460px;
+      aspect-ratio: 1 / 0.96;
+      margin: 8px auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Decorative SVG Orbital Rings */
+    .orbit-rings-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* Central Glowing Emblem */
+    .kanishka-core {
+      position: relative;
+      z-index: 2;
+      width: clamp(118px, 31vw, 148px);
+      height: clamp(118px, 31vw, 148px);
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #FFFFFF 0%, #FFE4EC 55%, #FFD1DF 100%);
+      border: 3px solid var(--gold-foil);
+      box-shadow:
+        0 0 0 6px rgba(255, 228, 236, 0.65),
+        0 0 36px rgba(224, 62, 115, 0.35),
+        0 12px 28px rgba(212, 175, 55, 0.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px;
+      animation: corePulse 3.6s ease-in-out infinite;
+    }
+
+    @keyframes corePulse {
+      0%, 100% {
+        box-shadow:
+          0 0 0 6px rgba(255, 228, 236, 0.65),
+          0 0 28px rgba(224, 62, 115, 0.3),
+          0 12px 24px rgba(212, 175, 55, 0.3);
+      }
+      50% {
+        box-shadow:
+          0 0 0 10px rgba(237, 228, 255, 0.75),
+          0 0 42px rgba(224, 62, 115, 0.45),
+          0 14px 32px rgba(212, 175, 55, 0.45);
+      }
+    }
+
+    .core-star-icon {
+      font-size: 1.45rem;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .core-name {
+      font-family: var(--font-serif);
+      font-size: clamp(0.95rem, 3vw, 1.18rem);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--rose-accessible);
+    }
+
+    .core-sub {
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-text);
+      margin-top: 2px;
+    }
+
+    /* 5 Orbiting Talent Pills positioned cleanly around the center */
+    .orbit-pill {
+      position: absolute;
+      z-index: 3;
+      min-height: 44px;
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid var(--gold-foil);
+      background: rgba(255, 253, 249, 0.96);
+      color: var(--ink-dark);
+      font-family: var(--font-sans);
+      font-size: clamp(0.76rem, 2.5vw, 0.88rem);
+      font-weight: 800;
+      white-space: nowrap;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(43, 19, 32, 0.12);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    /* Careful non-overlapping coordinates for mobile & desktop */
+    .orbit-pill[data-talent="dancer"] {
+      top: 4%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .orbit-pill[data-talent="painter"] {
+      top: 30%;
+      right: 2%;
+    }
+
+    .orbit-pill[data-talent="reader"] {
+      bottom: 8%;
+      right: 6%;
+    }
+
+    .orbit-pill[data-talent="bhangra"] {
+      bottom: 8%;
+      left: 4%;
+    }
+
+    .orbit-pill[data-talent="neet"] {
+      top: 30%;
+      left: 2%;
+    }
+
+    .orbit-pill:hover,
+    .orbit-pill:focus-visible {
+      background: var(--blush-light);
+      color: var(--rose-accessible);
+      box-shadow: 0 10px 24px rgba(224, 62, 115, 0.25);
+      outline: none;
+    }
+
+    .orbit-pill.is-active {
+      background: var(--grad-rose);
+      color: #FFFFFF;
+      border-color: var(--gold-light);
+      box-shadow: 0 10px 24px rgba(184, 37, 87, 0.38);
+    }
+
+    .orbit-pill[data-talent="dancer"].is-active,
+    .orbit-pill[data-talent="dancer"]:hover {
+      transform: translateX(-50%) scale(1.07);
+    }
+
+    .orbit-pill:not([data-talent="dancer"]).is-active,
+    .orbit-pill:not([data-talent="dancer"]):hover {
+      transform: scale(1.07);
+    }
+
+    /* Spotlight Compliment Readout Card */
+    .talent-spotlight-box {
+      width: 100%;
+      max-width: 540px;
+      min-height: 112px;
+      background: linear-gradient(145deg, #FFFFFF 0%, var(--lavender-soft) 100%);
+      border: 1.5px solid rgba(212, 175, 55, 0.6);
+      border-radius: var(--radius-md);
+      padding: 20px 22px;
+      text-align: center;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s ease;
+    }
+
+    .spotlight-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--rose-accessible);
+      margin-bottom: 6px;
+    }
+
+    .spotlight-message {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink-dark);
+      line-height: 1.48;
+    }
+
+    /* Official Gold-Foil Seal Badge */
+    .omniverse-seal-badge {
+      max-width: 520px;
+      width: 100%;
+      background: linear-gradient(135deg, #FFFDF9 0%, #FFF3D1 50%, #FFE4EC 100%);
+      border: 2px solid var(--gold-foil);
+      border-radius: var(--radius-pill);
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-align: center;
+      box-shadow: var(--shadow-gold);
+    }
+
+    .seal-emblem {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--grad-gold);
+      color: #2B1320;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
+    .seal-text {
+      font-size: clamp(0.82rem, 2.6vw, 0.94rem);
+      font-weight: 800;
+      color: var(--ink-dark);
+      line-height: 1.35;
+    }
+
+    /* ==========================================================================
+       10. SECTION 5: BIRTHDAY ENVELOPE FINALE
+       ========================================================================== */
+    .envelope-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 12px;
+    }
+
+    .envelope-container {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    /* Sealed Envelope Visual */
+    .envelope-box {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      background: linear-gradient(160deg, #FFD1DF 0%, #F7A8C2 100%);
+      border: 2px solid var(--gold-foil);
+      border-radius: 18px;
+      box-shadow: 0 22px 48px -12px rgba(184, 37, 87, 0.28);
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.3s ease, opacity 0.45s ease, max-height 0.55s ease;
+    }
+
+    .envelope-box:hover:not(.is-open) {
+      transform: translateY(-4px);
+    }
+
+    /* Envelope Pocket Folds */
+    .envelope-pocket {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .envelope-pocket::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255, 228, 236, 0.92) 0%, #FFB8CE 100%);
+      clip-path: polygon(0 100%, 50% 46%, 100% 100%);
+      border-top: 2px solid var(--gold-foil);
+    }
+
+    .envelope-pocket::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 209, 223, 0.55);
+      clip-path: polygon(0 0, 0 100%, 48% 52%);
+    }
+
+    .envelope-right-fold {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      background: rgba(255, 209, 223, 0.55);
+      clip-path: polygon(100% 0, 100% 100%, 52% 52%);
+    }
+
+    /* Top Triangular Flap */
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 62%;
+      z-index: 4;
+      background: linear-gradient(180deg, #F59AB8 0%, #FFD1DF 100%);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top center;
+      transition: transform 0.65s cubic-bezier(0.34, 1.35, 0.64, 1), z-index 0.1s linear 0.3s;
+      pointer-events: none;
+    }
+
+    .envelope-box.is-open .envelope-flap {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    /* Wax Seal Button */
+    .wax-seal-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 6;
+      min-width: 112px;
+      min-height: 112px;
+      padding: 14px;
+      border-radius: 50%;
+      border: 3px solid var(--gold-light);
+      background: radial-gradient(circle at 35% 30%, #E84A7F 0%, #B82557 70%, #8A173E 100%);
+      color: #FFFDF9;
+      font-family: var(--font-sans);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      box-shadow:
+        0 10px 25px rgba(138, 23, 62, 0.45),
+        inset 0 0 0 3px rgba(212, 175, 55, 0.65);
+      transition: transform 0.25s ease, opacity 0.35s ease;
+    }
+
+    .wax-seal-btn:hover,
+    .wax-seal-btn:focus-visible {
+      transform: translate(-50%, -50%) scale(1.07);
+      outline: none;
+    }
+
+    .envelope-box.is-open .wax-seal-btn {
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0.7);
+    }
+
+    /* Revealed Cream & Gold Birthday Letter Card */
+    .letter-card {
+      display: none;
+      width: 100%;
+      background: linear-gradient(165deg, #FFFDF9 0%, #FFF7F0 65%, #FFE4EC 100%);
+      border: 2.5px solid var(--gold-foil);
+      border-radius: var(--radius-lg);
+      padding: clamp(26px, 6vw, 38px) clamp(20px, 5vw, 32px);
+      text-align: center;
+      box-shadow:
+        0 24px 55px -12px rgba(184, 37, 87, 0.25),
+        inset 0 0 0 5px rgba(255, 228, 236, 0.65);
+      position: relative;
+    }
+
+    .letter-card.is-visible {
+      display: block;
+      animation: letterSlideOut 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes letterSlideOut {
+      from {
+        opacity: 0;
+        transform: translateY(36px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .letter-header-crest {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold-text);
+      margin-bottom: 14px;
+    }
+
+    .letter-message {
+      font-family: var(--font-serif);
+      font-size: clamp(1.45rem, 5vw, 1.95rem);
+      font-weight: 800;
+      color: var(--ink-dark);
+      line-height: 1.4;
+      margin-bottom: 18px;
+      white-space: pre-line;
+    }
+
+    .letter-signature {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--rose-accessible);
+      letter-spacing: 0.06em;
+    }
+
+    .replay-confetti-wrap {
+      margin-top: 22px;
+      display: none;
+    }
+
+    .replay-confetti-wrap.is-visible {
+      display: block;
+    }
+
+    .replay-btn {
+      min-height: 46px;
+      padding: 11px 24px;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid var(--gold-foil);
+      background: #FFFFFF;
+      color: var(--rose-accessible);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .replay-btn:hover,
+    .replay-btn:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-gold);
+      outline: none;
+    }
+
+    /* ==========================================================================
+       11. EDITORIAL FOOTER
+       ========================================================================== */
+    .editorial-footer {
+      text-align: center;
+      padding: 28px 16px 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      border-top: 1px solid rgba(212, 175, 55, 0.3);
+      background: rgba(255, 247, 240, 0.6);
+    }
+
+    /* ==========================================================================
+       12. REDUCED MOTION ACCESSIBILITY
+       ========================================================================== */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.15ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Lightweight HTML5 Canvas Confetti Overlay -->
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+  <!-- Subtle Floating Ambient Stars & Sparkles -->
+  <div class="ambient-sparkles" aria-hidden="true">
+    <span class="sparkle-dot" style="top: 8%; left: 10%; font-size: 1.1rem; animation-delay: 0s;">✦</span>
+    <span class="sparkle-dot" style="top: 18%; right: 12%; font-size: 0.9rem; animation-delay: 1.4s;">★</span>
+    <span class="sparkle-dot" style="top: 42%; left: 6%; font-size: 1.2rem; animation-delay: 2.6s;">✧</span>
+    <span class="sparkle-dot" style="top: 64%; right: 8%; font-size: 1.15rem; animation-delay: 0.8s;">✦</span>
+    <span class="sparkle-dot" style="top: 82%; left: 14%; font-size: 0.95rem; animation-delay: 3.1s;">★</span>
+  </div>
+
+  <!-- Sticky Editorial Mini-Header (Reveals upon entering the Omniverse) -->
+  <header class="sticky-header" id="stickyHeader">
+    <div class="sticky-inner">
+      <div class="sticky-brand">
+        <span>👑</span>
+        <span>KANISHKA'S OMNIVERSE • 2130</span>
+      </div>
+      <button type="button" class="mini-confetti-btn" id="headerConfettiBtn" aria-label="Launch celebratory confetti">
+        <span>✨ Confetti</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       1. GRAND ENTRANCE (FULL-SCREEN OPENING STAGE)
+       ======================================================================== -->
+  <section class="grand-entrance" id="grandEntrance" aria-label="Grand Entrance">
+    <div class="entrance-card">
+      <!-- Custom Inline-SVG Royal Crown & Ribbon Emblem -->
+      <div class="crown-emblem-wrap" aria-hidden="true">
+        <svg viewBox="0 0 120 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="crownGold" x1="15" y1="15" x2="105" y2="75" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#F5D77F" />
+              <stop offset="50%" stop-color="#D4AF37" />
+              <stop offset="100%" stop-color="#A87E15" />
+            </linearGradient>
+            <linearGradient id="crownRose" x1="30" y1="25" x2="90" y2="70" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#FF8FB1" />
+              <stop offset="100%" stop-color="#E03E73" />
+            </linearGradient>
+          </defs>
+          <!-- Sparkles -->
+          <path d="M18 18L20 23L25 25L20 27L18 32L16 27L11 25L16 23L18 18Z" fill="#D4AF37" />
+          <path d="M102 14L103.5 18L107.5 19.5L103.5 21L102 25L100.5 21L96.5 19.5L100.5 18L102 14Z" fill="#E03E73" />
+          <!-- Crown Silhouette -->
+          <path d="M22 66L16 30L40 46L60 20L80 46L104 30L98 66H22Z" fill="url(#crownGold)" stroke="#8A6608" stroke-width="2" stroke-linejoin="round" />
+          <!-- Jewel Accents -->
+          <circle cx="60" cy="49" r="5.5" fill="url(#crownRose)" stroke="#FFFDF9" stroke-width="1.5" />
+          <circle cx="38" cy="53" r="3.5" fill="#EDE4FF" stroke="#8A6608" stroke-width="1" />
+          <circle cx="82" cy="53" r="3.5" fill="#EDE4FF" stroke="#8A6608" stroke-width="1" />
+          <circle cx="60" cy="15" r="3.5" fill="#F5D77F" stroke="#8A6608" stroke-width="1.2" />
+          <circle cx="15" cy="26" r="2.8" fill="#F5D77F" />
+          <circle cx="105" cy="26" r="2.8" fill="#F5D77F" />
+          <!-- Crown Base Band -->
+          <rect x="22" y="67" width="76" height="9" rx="4.5" fill="url(#crownGold)" stroke="#8A6608" stroke-width="1.5" />
+          <!-- Editorial Ribbon -->
+          <path d="M32 82C46 77 74 77 88 82" stroke="#E03E73" stroke-width="3" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <div class="sash-badge">
+        <span>✨</span>
+        <span>MISS UNIVERSE 2130… OOPS, OMNIVERSE!</span>
+        <span>✨</span>
+      </div>
+
+      <h1 class="hero-headline">
+        HAPPY BIRTHDAY,
+        <span>KANISHKA!</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        The universe wasn't big enough for all your talents.
+      </p>
+
+      <button type="button" class="cta-omniverse" id="enterOmniverseBtn">
+        <span>ENTER THE OMNIVERSE</span>
+        <span aria-hidden="true">👑</span>
+      </button>
+
+      <p class="entrance-footnote">OFFICIAL GALA EDITION • VIP ACCESS GRANTED</p>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       MAIN EDITORIAL SCROLLABLE CONTENT
+       ======================================================================== -->
+  <main class="editorial-main" id="mainOmniverse">
+
+    <!-- ======================================================================
+         2. THE ORIGIN STORY (SCRAPBOOK POLAROID SECTION)
+         ====================================================================== -->
+    <section class="editorial-section" id="originStory" aria-labelledby="origin-heading">
+      <div class="section-header">
+        <span class="section-kicker">01 / THE ARCHIVES</span>
+        <h2 class="section-title" id="origin-heading">The Origin Story</h2>
+      </div>
+
+      <div class="scrapbook-stage">
+        <figure class="polaroid-frame">
+          <div class="washi-tape washi-left" aria-hidden="true"></div>
+          <div class="washi-tape washi-right" aria-hidden="true"></div>
+
+          <div class="polaroid-photo">
+            <!-- PHOTO SLOT: Save Kanishka's photo as "kanishka.jpg" in the same folder as index.html -->
+            <img
+              src="kanishka.jpg"
+              alt="Kanishka holding her certificate and trophy"
+              class="polaroid-img"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="polaroid-fallback" style="display: none;">
+              <span style="font-size: 2rem;" aria-hidden="true">📸</span>
+              <p class="placeholder-label">Save the photo as kanishka.jpg in the same folder as index.html</p>
+            </div>
+          </div>
+
+          <figcaption class="polaroid-caption">
+            “The origin story of a future Omniverse ruler.”
+          </figcaption>
+        </figure>
+
+        <!-- Scrapbook Achievement Sticker Card -->
+        <div class="achievement-sticker" role="note">
+          <div class="sticker-medal" aria-hidden="true">🏅</div>
+          <p class="sticker-text">
+            An early achievement. A lifetime of showing off. 😂
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         3. THE TALENT SCANNER (6 INTERACTIVE 3D FLIP CARDS)
+         ====================================================================== -->
+    <section class="editorial-section" id="talentScanner" aria-labelledby="scanner-heading">
+      <div class="section-header">
+        <span class="section-kicker">02 / BIOMETRIC SCAN</span>
+        <h2 class="section-title" id="scanner-heading">The Talent Scanner</h2>
+        <p class="section-subtitle">Tap any card to scan talent</p>
+      </div>
+
+      <div class="talent-grid">
+        <!-- Card 1: Professional dancer -->
+        <div class="flip-card" role="button" tabindex="0" aria-pressed="false" aria-label="Professional dancer. Tap to scan talent.">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front">
+              <span class="talent-emoji" aria-hidden="true">💃</span>
+              <h3 class="talent-card-title">Professional dancer</h3>
+              <span class="scan-pill">TAP TO SCAN</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="scan-verified-tag">SCAN COMPLETE</span>
+              <p class="talent-desc">
+                Capable of turning any random floor into an international award-show stage with zero warm-up and 100% main-character choreography.
+              </p>
+              <span class="tap-return-hint">Tap to flip back ↺</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Painter -->
+        <div class="flip-card" role="button" tabindex="0" aria-pressed="false" aria-label="Painter. Tap to scan talent.">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front">
+              <span class="talent-emoji" aria-hidden="true">🎨</span>
+              <h3 class="talent-card-title">Painter</h3>
+              <span class="scan-pill">TAP TO SCAN</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="scan-verified-tag">SCAN COMPLETE</span>
+              <p class="talent-desc">
+                Casual brush strokes that somehow look gallery-ready while she insists, 'It’s honestly not even finished yet.'
+              </p>
+              <span class="tap-return-hint">Tap to flip back ↺</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Reader -->
+        <div class="flip-card" role="button" tabindex="0" aria-pressed="false" aria-label="Reader. Tap to scan talent.">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front">
+              <span class="talent-emoji" aria-hidden="true">📚</span>
+              <h3 class="talent-card-title">Reader</h3>
+              <span class="scan-pill">TAP TO SCAN</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="scan-verified-tag">SCAN COMPLETE</span>
+              <p class="talent-desc">
+                Speed-running entire fictional universes and plot twists before the rest of humanity finishes reading the back cover.
+              </p>
+              <span class="tap-return-hint">Tap to flip back ↺</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: Bhangra hip-hopper -->
+        <div class="flip-card" role="button" tabindex="0" aria-pressed="false" aria-label="Bhangra hip-hopper. Tap to scan talent.">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front">
+              <span class="talent-emoji" aria-hidden="true">🕺</span>
+              <h3 class="talent-card-title">Bhangra hip-hopper</h3>
+              <span class="scan-pill">TAP TO SCAN</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="scan-verified-tag">SCAN COMPLETE</span>
+              <p class="talent-desc">
+                The scientifically unexplained fusion of full-power dhol energy and effortless street-style moves. Unmatched range.
+              </p>
+              <span class="tap-return-hint">Tap to flip back ↺</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5: NEET warrior -->
+        <div class="flip-card" role="button" tabindex="0" aria-pressed="false" aria-label="NEET warrior. Tap to scan talent.">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front">
+              <span class="talent-emoji" aria-hidden="true">🧠</span>
+              <h3 class="talent-card-title">NEET warrior</h3>
+              <span class="scan-pill">TAP TO SCAN</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="scan-verified-tag">SCAN COMPLETE</span>
+              <p class="talent-desc">
+                Conquering massive biology diagrams, organic chemistry nightmares, and mock tests while still maintaining Miss Omniverse poise.
+              </p>
+              <span class="tap-return-hint">Tap to flip back ↺</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6: Etc. -->
+        <div class="flip-card" role="button" tabindex="0" aria-pressed="false" aria-label="Etc. Tap to scan talent.">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front">
+              <span class="talent-emoji" aria-hidden="true">✨</span>
+              <h3 class="talent-card-title">Etc.</h3>
+              <span class="scan-pill">TAP TO SCAN</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="scan-verified-tag">SCAN COMPLETE</span>
+              <p class="talent-desc">
+                Her own legendary, ever-expanding category of unannounced side quests, iconic comebacks, and talents not yet invented.
+              </p>
+              <span class="tap-return-hint">Tap to flip back ↺</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         4. THE OMNIVERSE HALL OF FAME (GLAMOROUS AWARDS SECTION)
+         ====================================================================== -->
+    <section class="editorial-section" id="hallOfFame" aria-labelledby="fame-heading">
+      <div class="section-header">
+        <!-- Multi-Layered Gold & Rose Inline-SVG Crown & Trophy Illustration -->
+        <div class="trophy-showcase" aria-hidden="true">
+          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="trophyGold" x1="25" y1="20" x2="95" y2="105" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#F7DF8B" />
+                <stop offset="50%" stop-color="#D4AF37" />
+                <stop offset="100%" stop-color="#9A7210" />
+              </linearGradient>
+              <linearGradient id="trophyRose" x1="40" y1="30" x2="80" y2="85" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#FF8FB1" />
+                <stop offset="100%" stop-color="#B82557" />
+              </linearGradient>
+            </defs>
+            <!-- Halo Glow -->
+            <circle cx="60" cy="56" r="44" fill="#FFE4EC" opacity="0.65" />
+            <circle cx="60" cy="56" r="36" stroke="#D4AF37" stroke-width="1.2" stroke-dasharray="4 4" />
+            <!-- Floating Crown Above Cup -->
+            <path d="M44 24L41 14L50 19L60 11L70 19L79 14L76 24H44Z" fill="url(#trophyGold)" stroke="#7A5908" stroke-width="1.5" stroke-linejoin="round" />
+            <!-- Trophy Handles -->
+            <path d="M36 36H26C22 36 20 40 21 45C22 52 29 56 38 56" stroke="url(#trophyGold)" stroke-width="4" stroke-linecap="round" />
+            <path d="M84 36H94C98 36 100 40 99 45C98 52 91 56 82 56" stroke="url(#trophyGold)" stroke-width="4" stroke-linecap="round" />
+            <!-- Trophy Cup -->
+            <path d="M36 30H84V48C84 62 73 72 60 72C47 72 36 62 36 48V30Z" fill="url(#trophyGold)" stroke="#7A5908" stroke-width="1.8" />
+            <!-- Center Emblem on Cup -->
+            <circle cx="60" cy="49" r="10" fill="url(#trophyRose)" stroke="#FFFDF9" stroke-width="1.8" />
+            <path d="M60 43L61.7 46.8L65.8 47.3L62.8 50.1L63.6 54.2L60 52.2L56.4 54.2L57.2 50.1L54.2 47.3L58.3 46.8L60 43Z" fill="#F7DF8B" />
+            <!-- Stem & Pedestal -->
+            <rect x="55" y="72" width="10" height="16" fill="url(#trophyGold)" stroke="#7A5908" stroke-width="1.5" />
+            <path d="M42 88H78L82 96H38L42 88Z" fill="url(#trophyGold)" stroke="#7A5908" stroke-width="1.5" stroke-linejoin="round" />
+            <rect x="34" y="96" width="52" height="9" rx="3" fill="#2B1320" stroke="#D4AF37" stroke-width="1.5" />
+          </svg>
+        </div>
+
+        <span class="section-kicker">03 / GALA CEREMONY</span>
+        <h2 class="section-title" id="fame-heading">The Omniverse Hall of Fame</h2>
+      </div>
+
+      <div class="awards-grid">
+        <!-- Award 1 -->
+        <article class="award-plaque">
+          <div class="award-icon-badge" aria-hidden="true">🌌</div>
+          <div class="award-meta">
+            <div class="award-category">HONOUR I • COSMIC DOMINATION</div>
+            <h3 class="award-title">Most Likely to Conquer the Omniverse</h3>
+          </div>
+        </article>
+
+        <!-- Award 2 -->
+        <article class="award-plaque">
+          <div class="award-icon-badge" aria-hidden="true">💎</div>
+          <div class="award-meta">
+            <div class="award-category">HONOUR II • FLAWLESS STANDARDS</div>
+            <h3 class="award-title">Best Self-Proclaimed Perfectionist</h3>
+          </div>
+        </article>
+
+        <!-- Award 3 -->
+        <article class="award-plaque">
+          <div class="award-icon-badge" aria-hidden="true">🎙️</div>
+          <div class="award-meta">
+            <div class="award-category">HONOUR III • ICONIC CATCHPHRASE</div>
+            <h3 class="award-title">Lifetime Achievement in Saying “I'm multi-talented unlike you”</h3>
+          </div>
+        </article>
+
+        <!-- Award 4 -->
+        <article class="award-plaque">
+          <div class="award-icon-badge" aria-hidden="true">👑</div>
+          <div class="award-meta">
+            <div class="award-category">HONOUR IV • FUTURE DYNASTY</div>
+            <h3 class="award-title">The 2130 Miss Universe Legacy Award</h3>
+          </div>
+        </article>
+      </div>
+
+      <div class="final-award-controls">
+        <button type="button" class="reveal-award-btn" id="revealFinalAwardBtn">
+          <span>Reveal the final award!</span>
+          <span aria-hidden="true">🏆</span>
+        </button>
+
+        <!-- Hidden 5th VIP Grand Award Plaque -->
+        <div class="vip-award-reveal" id="vipAwardBox" aria-live="polite">
+          <div class="vip-plaque-card">
+            <span class="vip-ribbon-tag">✨ GRAND OMNIVERSE FINALE HONOUR ✨</span>
+            <p class="vip-award-text">
+              Supreme Sweet 16 Omniverse Crown — Unanimously Awarded for Iconic Excellence Across All Known &amp; Unknown Dimensions 👑
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         5. KANISHKA'S OMNIVERSE — THE MAIN CHARACTER
+         ====================================================================== -->
+    <section class="editorial-section" id="mainCharacter" aria-labelledby="main-char-heading">
+      <div class="section-header">
+        <span class="section-kicker">04 / COSMIC CENTERPIECE</span>
+        <h2 class="section-title" id="main-char-heading">One human. Approximately 2130 talents.</h2>
+      </div>
+
+      <div class="constellation-wrapper">
+        <!-- Interactive Orbit Stage -->
+        <div class="orbit-stage" role="group" aria-label="Kanishka's Orbiting Talents">
+          <!-- Dashed Gold & Rose Orbital Rings -->
+          <svg class="orbit-rings-svg" viewBox="0 0 400 384" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <ellipse cx="200" cy="192" rx="164" ry="148" stroke="#D4AF37" stroke-width="1.4" stroke-dasharray="6 6" opacity="0.65" />
+            <ellipse cx="200" cy="192" rx="116" ry="104" stroke="#E03E73" stroke-width="1.2" stroke-dasharray="3 7" opacity="0.4" />
+          </svg>
+
+          <!-- Glowing Central Emblem -->
+          <div class="kanishka-core">
+            <span class="core-star-icon" aria-hidden="true">👑</span>
+            <div class="core-name">KANISHKA</div>
+            <div class="core-sub">MAIN CHARACTER</div>
+          </div>
+
+          <!-- 5 Floating Orbiting Talent Pills -->
+          <button type="button" class="orbit-pill" data-talent="dancer">💃 Dancer</button>
+          <button type="button" class="orbit-pill" data-talent="painter">🎨 Painter</button>
+          <button type="button" class="orbit-pill" data-talent="reader">📚 Reader</button>
+          <button type="button" class="orbit-pill" data-talent="bhangra">🕺 Bhangra Hip-Hopper</button>
+          <button type="button" class="orbit-pill" data-talent="neet">🧠 NEET Warrior</button>
+        </div>
+
+        <!-- Spotlight Readout Card -->
+        <div class="talent-spotlight-box" id="talentSpotlightBox" aria-live="polite">
+          <div class="spotlight-tag" id="spotlightTag">✨ OMNIVERSE CONSTELLATION</div>
+          <p class="spotlight-message" id="spotlightMessage">
+            Tap any orbiting talent around Kanishka to inspect her official Omniverse superpower!
+          </p>
+        </div>
+
+        <!-- Official Gold-Foil Seal Badge -->
+        <div class="omniverse-seal-badge" role="note">
+          <div class="seal-emblem" aria-hidden="true">✓</div>
+          <p class="seal-text">
+            Self-Proclaimed Perfect Human — Officially Recognised by the Omniverse.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         6. BIRTHDAY ENVELOPE FINALE
+         ====================================================================== -->
+    <section class="editorial-section" id="envelopeFinale" aria-labelledby="dispatch-heading">
+      <div class="section-header">
+        <span class="section-kicker">05 / VIP DISPATCH</span>
+        <h2 class="section-title" id="dispatch-heading">A Note For The Birthday Ruler</h2>
+      </div>
+
+      <div class="envelope-stage">
+        <div class="envelope-container">
+          <!-- Tactile Sealed Pink & Gold Envelope -->
+          <div class="envelope-box" id="birthdayEnvelope" role="button" tabindex="0" aria-label="Sealed pink birthday envelope. Tap to open.">
+            <div class="envelope-flap" aria-hidden="true"></div>
+            <div class="envelope-right-fold" aria-hidden="true"></div>
+            <div class="envelope-pocket" aria-hidden="true"></div>
+
+            <button type="button" class="wax-seal-btn" id="openEnvelopeBtn">
+              <span style="font-size: 1.35rem;" aria-hidden="true">💌</span>
+              <span>TAP TO OPEN</span>
+            </button>
+          </div>
+
+          <!-- Cream & Gold Birthday Letter Revealed When Opened -->
+          <div class="letter-card" id="birthdayLetterCard" aria-live="polite">
+            <div class="letter-header-crest">✨ OFFICIAL OMNIVERSE BIRTHDAY DISPATCH ✨</div>
+
+            <!-- EDIT BIRTHDAY MESSAGE HERE: Customize the text inside .letter-message below -->
+            <p class="letter-message">Happy Birthday, Kanishka!  Have a wonderful day! 🥳 And a  sweet 16</p>
+
+            <div class="letter-signature">— Certified by the Omniverse Birthday Committee 👑</div>
+          </div>
+        </div>
+
+        <div class="replay-confetti-wrap" id="replayConfettiWrap">
+          <button type="button" class="replay-btn" id="replayConfettiBtn">
+            <span>Replay Confetti ✨</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="editorial-footer">
+    Official Omniverse Press • Issue No. 2130 • Crafted exclusively for Kanishka
+  </footer>
+
+  <!-- ========================================================================
+       LIGHTWEIGHT INTERACTIVE JAVASCRIPT ENGINE
+       ======================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* ----------------------------------------------------------------------
+         1. LIGHTWEIGHT HTML5 CANVAS CONFETTI ENGINE
+         ---------------------------------------------------------------------- */
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      let animationFrameId = null;
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const CONFETTI_COLORS = [
+        '#E03E73', // Rose pink
+        '#FF8FB1', // Blush pink
+        '#D4AF37', // Metallic gold
+        '#F5D77F', // Champagne gold
+        '#B695F8', // Soft lavender
+        '#FFFDF9'  // Warm cream
+      ];
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      window.addEventListener('resize', resizeCanvas, { passive: true });
+      resizeCanvas();
+
+      function createParticle(x, y, isShower) {
+        const angle = isShower
+          ? (Math.PI / 2) + (Math.random() - 0.5) * 0.9
+          : Math.random() * Math.PI * 2;
+        const speed = isShower
+          ? 3 + Math.random() * 6
+          : 5 + Math.random() * 11;
+
+        const shapes = ['rect', 'circle', 'star'];
+        return {
+          x: x,
+          y: y,
+          vx: Math.cos(angle) * speed,
+          vy: isShower ? Math.abs(Math.sin(angle)) * speed : Math.sin(angle) * speed - 4,
+          size: 6 + Math.random() * 6,
+          color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+          shape: shapes[Math.floor(Math.random() * shapes.length)],
+          rotation: Math.random() * 360,
+          rotationSpeed: (Math.random() - 0.5) * 12,
+          tilt: Math.random() * Math.PI,
+          tiltSpeed: 0.06 + Math.random() * 0.08,
+          gravity: isShower ? 0.14 : 0.26,
+          drag: 0.975,
+          alpha: 1,
+          decay: isShower ? 0.007 + Math.random() * 0.005 : 0.011 + Math.random() * 0.007
+        };
+      }
+
+      function drawStar(cx, cy, spikes, outerRadius, innerRadius) {
+        let rot = (Math.PI / 2) * 3;
+        let step = Math.PI / spikes;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - outerRadius);
+        for (let i = 0; i < spikes; i++) {
+          ctx.lineTo(cx + Math.cos(rot) * outerRadius, cy + Math.sin(rot) * outerRadius);
+          rot += step;
+          ctx.lineTo(cx + Math.cos(rot) * innerRadius, cy + Math.sin(rot) * innerRadius);
+          rot += step;
+        }
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      function renderConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.vx *= p.drag;
+          p.vy = p.vy * p.drag + p.gravity;
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rotation += p.rotationSpeed;
+          p.tilt += p.tiltSpeed;
+          p.alpha -= p.decay;
+
+          if (p.alpha <= 0 || p.y > canvas.height + 30) {
+            particles.splice(i, 1);
+            continue;
+          }
+
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, p.alpha);
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rotation * Math.PI) / 180);
+          ctx.scale(1, Math.cos(p.tilt) || 0.2);
+          ctx.fillStyle = p.color;
+
+          if (p.shape === 'rect') {
+            ctx.fillRect(-p.size / 2, -p.size * 0.35, p.size, p.size * 0.7);
+          } else if (p.shape === 'circle') {
+            ctx.beginPath();
+            ctx.arc(0, 0, p.size * 0.45, 0, Math.PI * 2);
+            ctx.fill();
+          } else {
+            drawStar(0, 0, 5, p.size * 0.65, p.size * 0.3);
+          }
+
+          ctx.restore();
+        }
+
+        if (particles.length > 0) {
+          animationFrameId = requestAnimationFrame(renderConfetti);
+        } else {
+          animationFrameId = null;
+        }
+      }
+
+      function launchBurst(originX, originY, count) {
+        const total = prefersReducedMotion ? Math.min(20, count) : count;
+        const x = typeof originX === 'number' ? originX : canvas.width / 2;
+        const y = typeof originY === 'number' ? originY : canvas.height * 0.45;
+
+        for (let i = 0; i < total; i++) {
+          particles.push(createParticle(x, y, false));
+        }
+        if (!animationFrameId) {
+          renderConfetti();
+        }
+      }
+
+      function launchGrandShower() {
+        const waveCount = prefersReducedMotion ? 24 : 75;
+        for (let i = 0; i < waveCount; i++) {
+          const rx = Math.random() * canvas.width;
+          const ry = -10 - Math.random() * 120;
+          particles.push(createParticle(rx, ry, true));
+        }
+        if (!animationFrameId) {
+          renderConfetti();
+        }
+      }
+
+      /* ----------------------------------------------------------------------
+         2. GRAND ENTRANCE & STICKY HEADER INTERACTION
+         ---------------------------------------------------------------------- */
+      const enterOmniverseBtn = document.getElementById('enterOmniverseBtn');
+      const stickyHeader = document.getElementById('stickyHeader');
+      const headerConfettiBtn = document.getElementById('headerConfettiBtn');
+      const originStorySection = document.getElementById('originStory');
+
+      enterOmniverseBtn.addEventListener('click', function (e) {
+        const rect = e.currentTarget.getBoundingClientRect();
+        launchBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 95);
+        stickyHeader.classList.add('visible');
+
+        setTimeout(function () {
+          originStorySection.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+        }, 280);
+      });
+
+      // Also show sticky header once user scrolls past the grand entrance
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > window.innerHeight * 0.65) {
+          stickyHeader.classList.add('visible');
+        }
+      }, { passive: true });
+
+      headerConfettiBtn.addEventListener('click', function (e) {
+        const rect = e.currentTarget.getBoundingClientRect();
+        launchBurst(rect.left + rect.width / 2, rect.bottom + 10, 60);
+      });
+
+      /* ----------------------------------------------------------------------
+         3. THE TALENT SCANNER (6 INTERACTIVE FLIP CARDS)
+         ---------------------------------------------------------------------- */
+      const flipCards = document.querySelectorAll('.flip-card');
+
+      function toggleFlipCard(card) {
+        const isFlipped = card.classList.toggle('is-flipped');
+        card.setAttribute('aria-pressed', String(isFlipped));
+      }
+
+      flipCards.forEach(function (card) {
+        card.addEventListener('click', function () {
+          toggleFlipCard(card);
+        });
+
+        card.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleFlipCard(card);
+          }
+        });
+      });
+
+      /* ----------------------------------------------------------------------
+         4. THE OMNIVERSE HALL OF FAME (FINAL AWARD REVEAL)
+         ---------------------------------------------------------------------- */
+      const revealFinalAwardBtn = document.getElementById('revealFinalAwardBtn');
+      const vipAwardBox = document.getElementById('vipAwardBox');
+
+      revealFinalAwardBtn.addEventListener('click', function (e) {
+        const rect = e.currentTarget.getBoundingClientRect();
+        launchBurst(rect.left + rect.width / 2, rect.top, 85);
+
+        vipAwardBox.classList.add('is-revealed');
+        revealFinalAwardBtn.disabled = true;
+        revealFinalAwardBtn.innerHTML = '<span>Final Award Unlocked!</span><span aria-hidden="true">👑</span>';
+      });
+
+      /* ----------------------------------------------------------------------
+         5. KANISHKA'S OMNIVERSE — INTERACTIVE MAIN CHARACTER CONSTELLATION
+         ---------------------------------------------------------------------- */
+      const TALENT_COMPLIMENTS = {
+        dancer: {
+          tag: '💃 DANCER • STAGE ROYALTY',
+          text: 'Gravity officially takes a coffee break the second Kanishka hits the beat. Effortless grace, zero hesitation.'
+        },
+        painter: {
+          tag: '🎨 PAINTER • VISUAL GENIUS',
+          text: 'Turns a blank canvas into an aesthetic masterpiece while casually claiming she was "just doodling."'
+        },
+        reader: {
+          tag: '📚 READER • PLOT-TWIST PROPHET',
+          text: 'Has already lived 400 fictional lives before lunch and somehow still has room for one more chapter.'
+        },
+        bhangra: {
+          tag: '🕺 BHANGRA HIP-HOPPER • DUAL-ENGINE',
+          text: 'Seamless transition from high-voltage Punjabi dhol steps to crisp hip-hop grooves—an engineering marvel.'
+        },
+        neet: {
+          tag: '🧠 NEET WARRIOR • ACADEMIC BOSS',
+          text: 'Memorizing entire textbooks of human anatomy while serving Miss Omniverse confidence. Truly built different.'
+        }
+      };
+
+      const orbitPills = document.querySelectorAll('.orbit-pill');
+      const spotlightTag = document.getElementById('spotlightTag');
+      const spotlightMessage = document.getElementById('spotlightMessage');
+
+      orbitPills.forEach(function (pill) {
+        pill.addEventListener('click', function () {
+          const key = pill.getAttribute('data-talent');
+          const data = TALENT_COMPLIMENTS[key];
+          if (!data) return;
+
+          orbitPills.forEach(function (btn) {
+            btn.classList.remove('is-active');
+          });
+          pill.classList.add('is-active');
+
+          spotlightTag.textContent = data.tag;
+          spotlightMessage.textContent = data.text;
+        });
+      });
+
+      /* ----------------------------------------------------------------------
+         6. BIRTHDAY ENVELOPE FINALE
+         ---------------------------------------------------------------------- */
+      const birthdayEnvelope = document.getElementById('birthdayEnvelope');
+      const openEnvelopeBtn = document.getElementById('openEnvelopeBtn');
+      const birthdayLetterCard = document.getElementById('birthdayLetterCard');
+      const replayConfettiWrap = document.getElementById('replayConfettiWrap');
+      const replayConfettiBtn = document.getElementById('replayConfettiBtn');
+      let envelopeOpened = false;
+
+      function openBirthdayEnvelope() {
+        if (envelopeOpened) return;
+        envelopeOpened = true;
+
+        birthdayEnvelope.classList.add('is-open');
+        launchGrandShower();
+
+        setTimeout(function () {
+          birthdayEnvelope.style.display = 'none';
+          birthdayLetterCard.classList.add('is-visible');
+          replayConfettiWrap.classList.add('is-visible');
+          launchBurst(canvas.width / 2, canvas.height * 0.45, 80);
+        }, 520);
+      }
+
+      openEnvelopeBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        openBirthdayEnvelope();
+      });
+
+      birthdayEnvelope.addEventListener('click', openBirthdayEnvelope);
+      birthdayEnvelope.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openBirthdayEnvelope();
+        }
+      });
+
+      replayConfettiBtn.addEventListener('click', function () {
+        launchGrandShower();
+        launchBurst(canvas.width / 2, canvas.height * 0.4, 70);
+      });
+    })();
+  </script>
+</body>
+</html>
